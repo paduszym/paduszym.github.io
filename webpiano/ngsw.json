@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1640028830404,
+  "timestamp": 1640030354409,
   "index": "/webpiano/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "/webpiano/3rdpartylicenses.txt",
         "/webpiano/index.html",
-        "/webpiano/main.883d5c54cddc35c4.js",
+        "/webpiano/main.6cb524012fa33f54.js",
         "/webpiano/manifest.json",
         "/webpiano/polyfills.5c6197063ca11232.js",
         "/webpiano/pwaicon/14aa7569/android-chrome-144x144.png",
@@ -79,8 +79,8 @@
   "dataGroups": [],
   "hashTable": {
     "/webpiano/3rdpartylicenses.txt": "39d0b22407b02ed221be62922aa68b5c2491d2b3",
-    "/webpiano/index.html": "db61aadfe733b9f53d56185e645a8565505558d5",
-    "/webpiano/main.883d5c54cddc35c4.js": "0179844ad24d5f444449fd525f34cb68abf0fda8",
+    "/webpiano/index.html": "2cfa80b6f7933b17892c9d0c41d09f0d988b3a88",
+    "/webpiano/main.6cb524012fa33f54.js": "c25675b0b67b2c84582115d4ba0839004bf381b5",
     "/webpiano/manifest.json": "a4c736823752a0bc41ca105d22c529d32efeab83",
     "/webpiano/polyfills.5c6197063ca11232.js": "0e6a06e1766a0c27be6b7cee7ac37c683fbf0953",
     "/webpiano/pwaicon/14aa7569/android-chrome-144x144.png": "d404f6b723e4c41070d764ed9844fb7584732e0d",
