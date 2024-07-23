@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" >
+<html>
+<head>
+<base href="/avr-testboard/">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="author" content="Autor strony">
+<meta name="description" content="Opis strony">
+<meta name="keywords" content="slowa kluczowe">
+<title>TB.100526 - Dokumentacja projektu</title>
+<style type="text/css">
+body {
+    font-family: Verdana;
+    font-size: 10pt;
+}
+</style>
+<body>
+<h2>TB.100526 (Test Board 2010-05-26)</h2>
+<i>Przygotowali:</i>
+<ul>
+<li>Mateusz Paduszyński (<a href="mailto:paduszym@ee.pw.edu.pl">paduszym@ee.pw.edu.pl</a>) -- schemat + projekt płytki</li>
+<li>Krzysztof Kordala (<a href="mailto:djkrzych1989@o2.pl">djkrzych1989@o2.pl</a>) -- wykonanie płytki</li>
+</ul>
+<h2>Wygląd zewnętrzny</h2>
+<a href="widok1.jpg"><img border="1" src="widok1.jpg"></a>
+<h2>Zastosowanie</h2>
+Jak sama nazwa wskazuje, projekt ten miał na celu przetestowanie możliwości układu ATmega8-16P. W tym celu dobrano odpowiednią konfigurację pinów, aby w miarę możliwości sprawdzić działanie wszystkich funkcji jakie oferuje mikrokontroler. Oprócz podstawowych połączeń wymaganych do programowania (tj. MISO, MOSI, RESET i SCK) podłączono pozostałe linie tak jak to pokazuje tabelka:
+<br><br>
+<table border="1">
+<tr>
+ <td><b>Port</b></td><td><b>Piny</b></td><td><b>We/Wy</b></td><td><b>Funkcja</b></td>
+</tr>
+<tr>
+ <td rowspan="2">B</td><td>7..4</td><td>Wy</td><td>cyfra dziesiątek liczby w kodzie BCD</td>
+</tr>
+<tr>
+ <td>3..0</td><td>Wy</td><td>cyfra jedności liczby w kodzie BCD</td>
+</tr>
+<tr>
+ <td rowspan="3">C</td><td>1..5</td><td>We</td><td>przyciski</td>
+</tr>
+<tr>
+ <td>0</td><td>We</td><td>kanał nr 0 przetwornika analog-cyfra</td>
+</tr>
+<tr>
+ <td>6</td><td>We</td><td>przycisk do resetowania mikrokontrolera</td>
+</tr>
+<tr>
+ <td rowspan="2">D</td><td>0,1,3..7</td><td>Wy</td><td>zielone diody LED</td>
+</tr>
+<tr>
+ <td>2</td><td>We</td><td>Wejście przerwania zewnętrznego INT0</td>
+</tr>
+</table>
+<h2>Schemat połączeń</h2>
+<a href="schemat.png"><img border="1" src="schemat.png" width="800" height="467"></a>
+<h2>Płytka drukowana</h2>
+<a href="plytka_front.png"><img border="1" src="plytka_front.png"></a>
+<a href="plytka_sciezki.png"><img border="1" src="plytka_sciezki.png"></a>
+<h2>Opis pinów gniazda ISP</h2>
+<ul>
+<li>1 -- MOSI,</li>
+<li>2 -- VCC (zasilanie +5V można uzyskać np. z USB, w programatorze USBasp jest ono wyprowadzane przez tą linię),</li>
+<li>3,4,6,8,10 -- GND,</li>
+<li>5 -- RST,</li>
+<li>7 -- SCK,</li>
+<li>9 -- MISO.</li>
+</ul>
+<h2>Wykaz elementów</h2>
+<ul>
+<li>płytka laminatowa 140x65mm,</li>
+<li>rezystory: 220Ω -- x21, 1kΩ -- x1,</li>
+<li>kondensatory: 100nF -- x2,</li>
+<li>mikroswitch'e -- x6,</li>
+<li>diody: BA157 -- x5, LED -- x7</li>
+<li>potencjometr montażowy poziomy 10kΩ -- x1,</li>
+<li>wyświetlacz 7-segmentowy WK: SC52-11 -- x2,</li>
+<li>układy scalone: ATmega8-16PU -- x1, HEP4511BP -- x2,</li>
+<li>gniazdo ISP: 10-pin -- x1.</li>
+</ul>
+<h2>Rola portów</h2>
+<b>Port B</b> -- pełni on funkcję wyjściową. W programie modyfikacja wartości rejestru <i>PORTB</i> spowoduje wyświetlenie na parze wyświetlaczy 7-segmentowych dwucyfrowej liczby, która jest z założenia w upakowanym kodzie BCD. Tak więc młodsza połówka bajtu odpowiada za cyfrę jedności, natomiast starsza za cyfrę dziesiątek. Konwersja liczby 0..9 na kod wyświetlacza 7-segmentowego jest dokonywana sprzętowo dzięki układowi 4511.<br><br>
+<b>Port C</b> -- pełni funkcję wejściową. W programie możliwy jest tylko odczyt wartości bitów 1..5. Każdy z tych bitów mówi o stanie, w jakim znajduje się aktualnie jeden z pięciu przycisków. Jeśli bit jest wyzerowany, wówczas przycisk jest wciśnięty -- w przeciwnym wypadku przycisk nie jest wciśnięty. Jeśli naciśnie się dowolny przycisk 1..5 to wówczas generowane jest zewnętrzne przerwanie INT0.<br><br>
+<b>Port D</b> -- pełni on funkcję wyjściową. Ustawienie bitu powoduje zapalenie się odpowiedniej diody, wyzerowanie -- jej zgaszenie.
+<h2>Rola potencjometru</h2>
+Dzięki potencjometrowi można przetestować wbudowany w ATmegę przetwornik analogowo-cyfrowy. Dzięki niemu można regulować wartość napięcia podawaną na zerowy kanał przetwornika. Dzięki dużej rezystancji maksymalnej potencjometru można uzyskać zakres praktycznie od 0V do VCC (+5V).
+<br><br><hr>
+<font size="1">(C) Copyright by Paduszyński &amp; Kordala 2010</font>
+</body>
+</html>
